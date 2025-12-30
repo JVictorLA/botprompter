@@ -39,6 +39,16 @@ const Index = () => {
     const interval = setInterval(checkN8nStatus, 30000);
     return () => clearInterval(interval);
   }, []);
+  
+  useEffect(() => {
+  if (!loading) {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: "instant", // evita animação estranha
+    });
+  }
+}, [loading]);
 
   return (
     <>
