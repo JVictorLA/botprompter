@@ -47,7 +47,7 @@ const Chatbot = () => {
 
     try {
       // Chamada para o webhook n8n
-      const response = await fetch('http://localhost:5678/webhook/f9bc1f6f-7e30-48c8-a3c4-7b0e3e5e45a7', {
+      const response = await fetch('https://n8n-n8n.serlgy.easypanel.host/webhook/botprompt', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
