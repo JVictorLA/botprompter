@@ -120,32 +120,58 @@ const Index = () => {
       </main>
 
       {/* FOOTER */}
-      <footer className="relative z-10 border-t border-gray-800/50">
-        <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-sm text-gray-500">
-            © {new Date().getFullYear()} PromptStudio AI
-          </p>
+     {/* FOOTER */}
+<footer className="relative z-10 border-t border-gray-800/50">
+  <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-6">
 
-          <p className="text-sm text-gray-400 text-center">
-            Desenvolvido com ❤️ para criadores no-code
-          </p>
+    {/* LEFT */}
+    <p className="text-sm text-gray-500">
+      © {new Date().getFullYear()} PromptStudio AI
+    </p>
 
-          <div className="flex items-center gap-3">
-            <Social href="https://github.com/JVictorLA">
-              <Github size={18} />
-            </Social>
-            <Social href="https://www.linkedin.com/in/jo%C3%A3o-victor-lima-de-almeida-b0b56a321">
-              <Linkedin size={18} />
-            </Social>
-            <Social href="https://www.instagram.com/_jvking.la77/">
-              <Instagram size={18} />
-            </Social>
-            <Social href="https://joaovictoralmeida.netlify.app/">
-              <Globe size={18} />
-            </Social>
-          </div>
-        </div>
-      </footer>
+    {/* CENTER */}
+    <p className="text-sm text-gray-400 text-center">
+      Desenvolvido com ❤️ para criadores no-code
+    </p>
+
+    {/* RIGHT */}
+    <div className="flex flex-col items-center gap-3">
+
+      {/* CRIADO POR — DESKTOP EM CIMA / MOBILE EM BAIXO */}
+      <a
+        href="https://joaovictoralmeida.netlify.app/"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="
+          order-2 md:order-1
+          text-sm font-medium
+          bg-gradient-to-r from-purple-400 to-cyan-400
+          bg-clip-text text-transparent
+          hover:opacity-80 transition
+        "
+      >
+        Criado por João Victor Almeida
+      </a>
+
+      {/* SOCIAL ICONS */}
+      <div className="order-1 md:order-2 flex items-center gap-4">
+        <Social href="https://github.com/JVictorLA">
+          <Github size={18} />
+        </Social>
+        <Social href="https://www.linkedin.com/in/jo%C3%A3o-victor-lima-de-almeida-b0b56a321">
+          <Linkedin size={18} />
+        </Social>
+        <Social href="https://www.instagram.com/_jvking.la77/">
+          <Instagram size={18} />
+        </Social>
+        <Social href="https://joaovictoralmeida.netlify.app/">
+          <Globe size={18} />
+        </Social>
+      </div>
+
+    </div>
+  </div>
+</footer>
     </div>
   );
 };
