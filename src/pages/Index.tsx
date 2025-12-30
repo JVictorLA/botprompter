@@ -2,6 +2,8 @@
 
 import { MadeWithDyad } from "@/components/made-with-dyad";
 import Chatbot from "@/components/Chatbot";
+import { Github, Linkedin, Instagram, Globe } from "lucide-react";
+
 
 const Index = () => {
   return (
@@ -18,7 +20,7 @@ const Index = () => {
             </div>
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent">
-                PromptCraft AI
+                PromptStudio AI
               </h1>
               <p className="text-gray-400 text-sm">Transforme ideias vagas em prompts detalhados</p>
             </div>
@@ -42,15 +44,79 @@ const Index = () => {
         </div>
       </main>
 
-      {/* Footer */}
-      <footer className="relative z-10 p-6 border-t border-gray-800/50">
-        <div className="max-w-7xl mx-auto text-center">
-          <MadeWithDyad />
-          <p className="text-gray-500 text-sm mt-2">
-            Desenvolvido com ❤️ para criadores de conteúdo no-code
-          </p>
-        </div>
-      </footer>
+    {/* Footer */}
+<footer className="relative z-10 border-t border-gray-800/50">
+  <div className="max-w-7xl mx-auto px-6 py-6 flex flex-col md:flex-row items-center justify-between gap-4">
+
+    {/* Left */}
+    <p className="text-sm text-gray-500">
+      © {new Date().getFullYear()} PromptCraft AI
+    </p>
+
+    {/* Center */}
+    <p className="text-sm text-gray-400 text-center">
+      Desenvolvido com ❤️ para criadores no-code
+    </p>
+
+    {/* Right */}
+<div className="flex flex-col items-center md:items-end gap-2">
+
+  <a
+    href="https://joaovictoralmeida.netlify.app/"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="text-sm font-medium bg-gradient-to-r from-purple-400 to-cyan-400 bg-clip-text text-transparent hover:opacity-80 transition"
+  >
+    Criado por João Victor Almeida
+  </a>
+
+  {/* Social Icons */}
+  <div className="flex items-center gap-3">
+    <a
+      href="https://github.com/JVictorLA"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-400 hover:text-white transition"
+      aria-label="GitHub"
+    >
+      <Github size={18} />
+    </a>
+
+    <a
+      href="https://www.linkedin.com/in/jo%C3%A3o-victor-lima-de-almeida-b0b56a321?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-400 hover:text-white transition"
+      aria-label="LinkedIn"
+    >
+      <Linkedin size={18} />
+    </a>
+
+    <a
+      href="https://www.instagram.com/_jvking.la77/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-400 hover:text-white transition"
+      aria-label="Instagram"
+    >
+      <Instagram size={18} />
+    </a>
+
+    <a
+      href="https://joaovictoralmeida.netlify.app/"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-gray-400 hover:text-white transition"
+      aria-label="Portfolio"
+    >
+      <Globe size={18} />
+    </a>
+  </div>
+
+</div>
+
+  </div>
+</footer>
     </div>
   );
 };
