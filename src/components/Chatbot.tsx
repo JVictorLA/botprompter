@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { Send, Copy, Loader2 } from "lucide-react";
+import { Send, Copy, Loader2, AlertTriangle } from "lucide-react";
 
 interface Message {
   id: string;
@@ -10,7 +10,9 @@ interface Message {
   timestamp: Date;
 }
 
-const Chatbot = () => {
+type StatusState = "checking" | "online" | "offline";
+
+const Chatbot = ({ status }: { status: StatusState }) => {
   const [messages, setMessages] = useState<Message[]>([
     {
       id: "1",
@@ -25,16 +27,18 @@ const Chatbot = () => {
   const [isLoading, setIsLoading] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
+  const isOffline = status === "offline";
+
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isLoading]);
+  }, [messages, isLoading, status]);
 
   const handleSendMessage = async () => {
-    if (!inputValue.trim() || isLoading) return;
+    if (!inputValue.trim() || isLoading || isOffline) return;
 
     const userMessage: Message = {
       id: Date.now().toString(),
@@ -68,8 +72,7 @@ const Chatbot = () => {
         ...prev,
         {
           id: (Date.now() + 1).toString(),
-          content:
-            data.response || "Não consegui gerar resposta agora.",
+          content: data.response || "Não consegui gerar resposta agora.",
           isUser: false,
           timestamp: new Date(),
         },
@@ -104,42 +107,33 @@ const Chatbot = () => {
     ));
 
   return (
-    /* Wrapper respeita o espaço do layout */
     <div className="w-full h-full px-4">
-      {/* Caixa do chatbot */}
-      <div
-        className="
-          flex flex-col
-          h-full min-h-0
-          max-w-6xl mx-auto
-          border border-gray-700/50
-          rounded-2xl
-          overflow-hidden
-          bg-gray-900/70 backdrop-blur
-        "
-      >
-        {/* Espaço visual no topo */}
+      <div className="flex flex-col h-full min-h-0 max-w-6xl mx-auto border border-gray-700/50 rounded-2xl overflow-hidden bg-gray-900/70 backdrop-blur">
+
         <div className="h-4 md:h-6 shrink-0" />
 
-        {/* Mensagens */}
-       <div
-  className="
-    flex-1 min-h-0
-    overflow-y-auto
-    px-4 md:px-6
-    py-6 md:py-8
-    space-y-5
-    bg-gradient-to-b from-gray-900/30 to-gray-800/20
-    scrollbar-thin scrollbar-thumb-gray-600/50 scrollbar-track-transparent
-  "
->
+        {/* MENSAGENS */}
+        <div className="flex-1 min-h-0 overflow-y-auto px-4 md:px-6 py-6 md:py-8 space-y-5 bg-gradient-to-b from-gray-900/30 to-gray-800/20 scrollbar-thin scrollbar-thumb-gray-600/50 scrollbar-track-transparent">
+
+          {/* AVISO OFFLINE */}
+          {isOffline && (
+            <div className="flex justify-center">
+              <div className="max-w-[90%] md:max-w-[75%] rounded-2xl p-4 text-sm border border-red-500/30 bg-red-500/10 text-red-300 flex items-start gap-3">
+                <AlertTriangle size={18} className="mt-0.5 shrink-0" />
+                <div>
+                  <p className="font-medium">Assistente indisponível</p>
+                  <p className="text-xs text-red-400 mt-1">
+                    O servidor n8n está offline no momento. Tente novamente mais tarde.
+                  </p>
+                </div>
+              </div>
+            </div>
+          )}
 
           {messages.map((message) => (
             <div
               key={message.id}
-              className={`flex ${
-                message.isUser ? "justify-end" : "justify-start"
-              }`}
+              className={`flex ${message.isUser ? "justify-end" : "justify-start"}`}
             >
               <div
                 className={`max-w-[90%] md:max-w-[75%] rounded-2xl p-4 text-sm leading-relaxed ${
@@ -179,39 +173,28 @@ const Chatbot = () => {
           <div ref={messagesEndRef} />
         </div>
 
-        {/* Input */}
-        <div
-          className="
-            shrink-0
-            border-t border-gray-700/50
-            bg-gray-900/90 backdrop-blur
-            px-3 py-3 md:px-6
-          "
-        >
+        {/* INPUT */}
+        <div className="shrink-0 border-t border-gray-700/50 bg-gray-900/90 backdrop-blur px-3 py-3 md:px-6">
           <div className="flex items-end gap-2">
             <textarea
               value={inputValue}
               onChange={(e) => setInputValue(e.target.value)}
               onKeyDown={handleKeyDown}
-              placeholder="Digite sua mensagem..."
+              placeholder={
+                isOffline
+                  ? "Assistente offline no momento..."
+                  : "Digite sua mensagem..."
+              }
               rows={1}
-              disabled={isLoading}
-              className="
-                flex-1 resize-none rounded-xl
-                bg-gray-800/60
-                border border-gray-700/50
-                px-4 py-3
-                text-gray-200 placeholder-gray-500
-                focus:outline-none focus:ring-1 focus:ring-cyan-400/30
-                min-h-[44px] max-h-[120px]
-              "
+              disabled={isLoading || isOffline}
+              className="flex-1 resize-none rounded-xl bg-gray-800/60 border border-gray-700/50 px-4 py-3 text-gray-200 placeholder-gray-500 focus:outline-none focus:ring-1 focus:ring-cyan-400/30 min-h-[44px] max-h-[120px] disabled:opacity-50"
             />
 
             <button
               onClick={handleSendMessage}
-              disabled={!inputValue.trim() || isLoading}
+              disabled={!inputValue.trim() || isLoading || isOffline}
               className={`h-11 w-11 rounded-xl flex items-center justify-center transition-all ${
-                inputValue.trim() && !isLoading
+                inputValue.trim() && !isLoading && !isOffline
                   ? "bg-gradient-to-r from-purple-600 to-cyan-500 text-white active:scale-95"
                   : "bg-gray-700/50 text-gray-500 cursor-not-allowed"
               }`}
@@ -224,6 +207,7 @@ const Chatbot = () => {
             </button>
           </div>
         </div>
+
       </div>
     </div>
   );

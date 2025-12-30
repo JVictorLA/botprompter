@@ -119,7 +119,7 @@ const Index = () => {
           {/* MAIN */}
           <main className="relative z-10 flex items-center justify-center p-4 md:p-6">
             <div className="w-full max-w-6xl h-[85vh] bg-gray-800/20 border border-gray-700/30 rounded-3xl backdrop-blur-lg shadow-2xl">
-              <Chatbot />
+              <Chatbot status={status} />
             </div>
           </main>
 
