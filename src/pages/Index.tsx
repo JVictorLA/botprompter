@@ -7,7 +7,7 @@ import Preloader from "@/components/Preloader";
 import { Github, Linkedin, Instagram, Globe } from "lucide-react";
 
 const N8N_STATUS_URL =
-  "https://n8n-n8n.serlgy.easypanel.host/webhook/status";
+  "https://n8n-n8n.wkbqag.easypanel.host/webhook/status";
 
 type StatusState = "checking" | "online" | "offline";
 

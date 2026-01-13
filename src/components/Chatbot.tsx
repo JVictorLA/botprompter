@@ -53,7 +53,7 @@ const Chatbot = ({ status }: { status: StatusState }) => {
 
     try {
       const response = await fetch(
-        "https://n8n-n8n.serlgy.easypanel.host/webhook/botprompt",
+        "https://n8n-n8n.wkbqag.easypanel.host/webhook/botprompt",
         {
           method: "POST",
           headers: { "Content-Type": "application/json" },
